@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Remote Tivi</title>
+</head>
+<body>
+<h1>REMOTE</h1>
+<button type="button" onclick="volumeUp()">volume(+)</button>
+<button type="button" onclick="volumeDown()">volume(-)</button>
+<button type="button" onclick="remoteOn()">ON</button>
+<button type="button" onclick="remoteOff()">OFF</button>
+<button type="button" onclick="changeChannel(1)">1</button>
+<button type="button" onclick="changeChannel(2)">2</button>
+<button type="button" onclick="changeChannel(3)">3</button>
+<button type="button" onclick="changeChannel(4)">4</button>
+<button type="button" onclick="changeChannel(5)">5</button>
+<button type="button" onclick="changeChannel(6)">6</button>
+<script>
+    function Tv(channel, volume, status) {
+        this.channel = channel;
+        this.volume = volume;
+        this.status = status;
+
+        this.setChannel = function (newChannel) {
+            this.channel = newChannel;
+        }
+        this.getVolume = function () {
+            return this.volume;
+        }
+        this.getStatus = function () {
+            return this.status;
+        }
+        this.setStatus = function (changeStatus) {
+            this.status = changeStatus;
+        }
+        this.turnOn = function () {
+            if(this.getStatus == true){
+                alert("Tv bật")
+            }
+        }
+        this.turnOff = function () {
+            if(this.getStatus()==false){
+                alert("Tv tắt")
+            }
+        }
+        this.volumeUp = function () {
+            this.volume++;
+        }
+        this.volumeDown = function () {
+            this.volume--;
+        }
+    }
+    function Remote() {
+        this.remoteStatus = function (tivi) {
+            if(tivi.getStatus()==true){
+                alert("Bạn vừa bật tivi");
+            }else{
+                alert("Bạn vừa tắt tivi");
+            }
+        }
+    }
+    var remote1= new Remote();
+    var samsung = new Tv(7,12,false);
+
+
+    function remoteOn() {
+        samsung.setStatus(true);
+        samsung.turnOn();
+        remote1.remoteStatus(samsung);
+    }
+
+    function remoteOff() {
+        samsung.setStatus(false);
+        samsung.turnOff();
+        remote1.remoteStatus(samsung);
+    }
+
+    function volumeUp() {
+        if (samsung.getStatus() == true) {
+            samsung.volumeUp();
+            if (samsung)
+                alert('Âm lượng: ' + samsung.getVolume())
+        }
+    }
+    function volumeDown() {
+        if (samsung.getStatus() == true) {
+            samsung.volumeDown();
+            if (samsung.getVolume() >= 0) {
+                alert('Âm lượng: ' + samsung.getVolume());
+            } else {
+                alert('Bạn đã giảm âm lượng hết cỡ! ');
+            }
+        }
+    }
+    function changeChannel(code){
+        if(samsung.getStatus()==true) {
+            samsung.setChannel(code);
+            alert('Kênh ' + code);
+        }
+    }
+</script>
+</body>
+</html>
